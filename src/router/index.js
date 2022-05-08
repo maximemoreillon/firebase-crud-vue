@@ -2,6 +2,8 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 // import HomeView from '../views/HomeView.vue'
 import Items from '../views/Items.vue'
+import NewItem from '../views/NewItem.vue'
+import Item from '../views/Item.vue'
 
 Vue.use(VueRouter)
 
@@ -16,6 +18,16 @@ const routes = [
     alias: '/',
     name: 'items',
     component: Items
+  },
+  {
+    path: '/items/new',
+    name: 'new_item',
+    component: NewItem
+  },
+  {
+    path: '/items/:id',
+    name: 'item',
+    component: Item
   },
   {
     path: '/about',

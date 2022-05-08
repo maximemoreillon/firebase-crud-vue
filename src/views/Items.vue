@@ -1,15 +1,28 @@
 <template>
   <v-card>
-    <v-card-title>
-      Items
-    </v-card-title>
+    <v-toolbar flat>
+      <v-row>
+        <v-col>
+          <v-toolbar-title>
+            Items
+          </v-toolbar-title>
+        </v-col>
+        <v-spacer />
+        <v-col cols="auto">
+          <v-btn
+            :to="{name: 'new_item'}">
+            New
+          </v-btn>
+        </v-col>
+      </v-row>
+    </v-toolbar>
+
     <v-card-text>
       <v-data-table
         :loading="loading"
         :headers="headers"
-        :items="items">
-        
-      </v-data-table>
+        :items="items"
+        @click:row="row_clicked($event)"/>
     </v-card-text>
   </v-card>
 </template>
@@ -19,7 +32,7 @@ import { firestore } from '@/firebase.js'
 import {
   collection,
   getDocs,
-} from "firebase/firestore"
+} from 'firebase/firestore'
 
 export default {
   name: 'Items',
@@ -43,7 +56,6 @@ export default {
         const collectionRef = collection(firestore, "items")
         const querySnapshot = await getDocs(collectionRef)
         this.items = querySnapshot.docs.map( doc => ({id: doc.id, data: doc.data() }) )
-        console.log(this.items);
       }
       catch (e) {
         console.error(e);
@@ -51,6 +63,10 @@ export default {
       finally {
         this.loading = false
       }
+    },
+    row_clicked({id}){
+      console.log(id);
+      this.$router.push({name: 'item', params: {id}})
     }
   }
 }
