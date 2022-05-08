@@ -8,7 +8,7 @@
       <v-toolbar-title>
         Firebase CRUD Vue
       </v-toolbar-title>
-      
+
     </v-app-bar>
 
     <v-main 
@@ -17,6 +17,7 @@
         <router-view/>
       </v-container>
     </v-main>
+    
   </v-app>
 </template>
 

@@ -1,9 +1,9 @@
 <template>
-<v-card>
-<v-card-title>
-  Title
-</v-card-title>
-</v-card>
+  <v-card>
+    <v-card-title>
+      Title
+    </v-card-title>
+  </v-card>
 </template>
 
 <script>
