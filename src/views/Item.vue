@@ -1,5 +1,7 @@
 <template>
   <v-card
+    max-width="30em"
+    class="mx-auto"
     :loading="loading">
 
     <v-toolbar flat>
@@ -44,6 +46,14 @@
           <v-text-field
             label="Name"
             v-model="item.name"
+          />
+        </v-col>
+      </v-row>
+      <v-row>
+        <v-col>
+          <v-text-field
+            label="Description"
+            v-model="item.description"
           />
         </v-col>
       </v-row>

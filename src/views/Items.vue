@@ -1,7 +1,7 @@
 <template>
   <v-card>
     <v-toolbar flat>
-      <v-row>
+      <v-row align="center">
         <v-col>
           <v-toolbar-title>
             Items
@@ -10,8 +10,9 @@
         <v-spacer />
         <v-col cols="auto">
           <v-btn
+            icon
             :to="{name: 'new_item'}">
-            New
+            <v-icon>mdi-plus</v-icon>
           </v-btn>
         </v-col>
       </v-row>
@@ -41,8 +42,8 @@ export default {
       loading: false,
       items: [],
       headers: [
-        {text: 'ID', value: 'id'},
         {text: 'Name', value: 'data.name'},
+        {text: 'Description', value: 'data.description'},
       ]
     }
   },
