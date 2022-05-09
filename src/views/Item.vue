@@ -1,9 +1,35 @@
 <template>
   <v-card
     :loading="loading">
-    <v-card-title>
-       Item
-    </v-card-title>
+
+    <v-toolbar flat>
+      <v-row align="center">
+        <v-col cols="auto">
+          <v-btn
+            icon
+            exact
+            :to="{name: 'items'}">
+            <v-icon>mdi-arrow-left</v-icon>
+          </v-btn>
+        </v-col>
+        <v-col cols="auto">
+          <v-toolbar-title>
+            Item
+          </v-toolbar-title>
+        </v-col>
+        <v-spacer />
+        <v-col cols="auto">
+          <v-btn
+            :loading="deleting"
+            icon
+            color="#c00000"
+            @click="delete_item()">
+            <v-icon>mdi-delete</v-icon>
+          </v-btn>
+        </v-col>
+      </v-row>
+    </v-toolbar>
+
     <v-card-text v-if="item">
       <v-row>
         <v-col>
@@ -24,6 +50,7 @@ import {
   collection,
   doc,
   getDoc,
+  deleteDoc,
 } from 'firebase/firestore'
 
 export default {
@@ -32,6 +59,7 @@ export default {
     return {
       item: null,
       loading: false,
+      deleting: false,
     }
   },
   mounted(){
@@ -52,6 +80,23 @@ export default {
       }
       finally {
         this.loading = false
+      }
+      
+    },
+    async delete_item(){
+
+      try {
+        this.deleting = true
+        const collectionRef = collection(firestore, 'items')
+        const docRef = doc(collectionRef,this.item_id)
+        await deleteDoc(docRef)
+        this.$router.push({name: 'items'})
+      } 
+      catch (error) {
+        alert(error)
+      }
+      finally {
+        this.deleting = false
       }
       
     },

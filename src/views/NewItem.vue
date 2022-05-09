@@ -49,8 +49,8 @@ export default {
       try {
         const properties = { name: this.name }
         const collectionRef = collection(firestore, 'items')
-        const result = await addDoc(collectionRef, properties)
-        console.log(result.id)
+        const {id} = await addDoc(collectionRef, properties)
+        this.$router.push({name: 'item', params: {id}})
       } 
       catch (error) {
         alert(error)
