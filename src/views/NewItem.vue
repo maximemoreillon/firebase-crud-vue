@@ -13,9 +13,7 @@
           </v-btn>
         </v-col>
         <v-col>
-          <v-toolbar-title>
-            New item
-          </v-toolbar-title>
+          <v-toolbar-title>New item</v-toolbar-title>
         </v-col>
         <v-spacer />
         
