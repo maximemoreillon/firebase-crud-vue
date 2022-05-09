@@ -20,6 +20,14 @@
         <v-spacer />
         <v-col cols="auto">
           <v-btn
+            :loading="updating"
+            icon
+            @click="update_item()">
+            <v-icon>mdi-content-save</v-icon>
+          </v-btn>
+        </v-col>
+        <v-col cols="auto">
+          <v-btn
             :loading="deleting"
             icon
             color="#c00000"
@@ -34,7 +42,6 @@
       <v-row>
         <v-col>
           <v-text-field
-            readonly
             label="Name"
             v-model="item.name"
           />
@@ -51,6 +58,7 @@ import {
   doc,
   getDoc,
   deleteDoc,
+  updateDoc,
 } from 'firebase/firestore'
 
 export default {
@@ -60,6 +68,7 @@ export default {
       item: null,
       loading: false,
       deleting: false,
+      updating: false,
     }
   },
   mounted(){
@@ -86,6 +95,7 @@ export default {
     async delete_item(){
 
       try {
+        if(!confirm('Delete item?')) return
         this.deleting = true
         const collectionRef = collection(firestore, 'items')
         const docRef = doc(collectionRef,this.item_id)
@@ -100,6 +110,20 @@ export default {
       }
       
     },
+    async update_item(){
+      try {
+        this.updating = true
+        const collectionRef = collection(firestore, 'items')
+        const docRef = doc(collectionRef,this.item_id)
+        await updateDoc(docRef, this.item)
+      } 
+      catch (error) {
+        alert(error)
+      }
+      finally {
+        this.updating = false
+      }
+    }
   },
   computed: {
     item_id(){

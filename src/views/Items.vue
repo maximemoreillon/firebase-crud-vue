@@ -65,7 +65,6 @@ export default {
       }
     },
     row_clicked({id}){
-      console.log(id);
       this.$router.push({name: 'item', params: {id}})
     }
   }
