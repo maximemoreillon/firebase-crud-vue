@@ -4,6 +4,9 @@ import VueRouter from 'vue-router'
 import Items from '../views/Items.vue'
 import NewItem from '../views/NewItem.vue'
 import Item from '../views/Item.vue'
+import Login from '../views/Login.vue'
+import Register from '../views/Register.vue'
+import Account from '../views/Account.vue'
 
 Vue.use(VueRouter)
 
@@ -28,6 +31,21 @@ const routes = [
     path: '/items/:id',
     name: 'item',
     component: Item
+  },
+  {
+    path: '/login',
+    name: 'login',
+    component: Login
+  },
+  {
+    path: '/register',
+    name: 'register',
+    component: Register
+  },
+  {
+    path: '/account',
+    name: 'account',
+    component: Account
   },
   {
     path: '/about',
