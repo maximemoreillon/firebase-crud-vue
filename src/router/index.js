@@ -1,5 +1,8 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
+import store from '../store'
+import { getAuth } from "firebase/auth"
+
 // import HomeView from '../views/HomeView.vue'
 import Items from '../views/Items.vue'
 import NewItem from '../views/NewItem.vue'
@@ -8,7 +11,36 @@ import Login from '../views/Login.vue'
 import Register from '../views/Register.vue'
 import Account from '../views/Account.vue'
 
+
+
+
 Vue.use(VueRouter)
+
+
+const waitForAuthReady = async () => new Promise ((resolve) => {
+  if (store.state.authReady) resolve()
+    getAuth().onAuthStateChanged(() => {
+      store.commit('setAuthReady', true)
+      resolve()
+    })
+})
+  
+
+
+const requireAuth = async (to, from, next) => {
+
+  await waitForAuthReady()
+  
+  const { currentUser } = getAuth()
+
+  if (!currentUser && to.name !== 'login') {
+    // redirect the user to the login page
+    next({ name: 'login' })
+  }
+  else {
+    next()
+  }
+}
 
 const routes = [
   // {
@@ -20,17 +52,27 @@ const routes = [
     path: '/items',
     alias: '/',
     name: 'items',
-    component: Items
+    component: Items,
+    beforeEnter: requireAuth,
   },
   {
     path: '/items/new',
     name: 'new_item',
-    component: NewItem
+    component: NewItem,
+    beforeEnter: requireAuth,
   },
   {
     path: '/items/:id',
     name: 'item',
-    component: Item
+    component: Item,
+    beforeEnter: requireAuth,
+  },
+  {
+    path: '/account',
+    name: 'account',
+    component: Account,
+    beforeEnter: requireAuth,
+    auth: true,
   },
   {
     path: '/login',
@@ -42,18 +84,11 @@ const routes = [
     name: 'register',
     component: Register
   },
-  {
-    path: '/account',
-    name: 'account',
-    component: Account
-  },
+  
   {
     path: '/about',
     name: 'about',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/AboutView.vue')
+    component: () => import('../views/AboutView.vue')
   }
 ]
 

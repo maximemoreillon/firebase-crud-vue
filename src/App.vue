@@ -2,9 +2,13 @@
   <v-app>
     <v-app-bar app color="#444444" dark clipped-left>
       <v-app-bar-nav-icon @click.stop="drawer = !drawer" />
-      <v-toolbar-title>School Up</v-toolbar-title>
+      <v-toolbar-title>Firebase + Vue.js</v-toolbar-title>
       <v-spacer></v-spacer>
-      <v-btn :to="{name: 'login'}" icon>
+
+      <v-btn :to="{name: 'account'}" icon v-if="user">
+        <v-icon>mdi-account</v-icon>
+      </v-btn>
+      <v-btn :to="{name: 'login'}" icon v-else>
         <v-icon>mdi-login</v-icon>
       </v-btn>
     </v-app-bar>
@@ -47,24 +51,18 @@
     </v-main>
 
     <v-footer>
-      <v-col class="text-center" cols="12"> Copyright © School Up 2022 </v-col>
+      <v-col class="text-center" cols="12"> Firebase + Vue.js - Maxime MOREILLON </v-col>
     </v-footer>
   </v-app>
 </template>
 
 <script>
-import { onAuthStateChanged, getAuth } from "firebase/auth"
+import { getAuth } from "firebase/auth"
 
 export default {
   name: "App",
   components: {},
-  mounted() {
-    // This is probably not the best place for this
-    const auth = getAuth()
-    onAuthStateChanged(auth, user => {
-      this.$store.commit('set_user', user)
-    })
-  },
+
   data() {
     return {
       drawer: null,
@@ -83,5 +81,10 @@ export default {
       ],
     };
   },
+  computed: {
+    user(){
+      return getAuth().currentUser
+    }
+  }
 };
 </script>
