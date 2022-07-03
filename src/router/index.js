@@ -5,7 +5,6 @@ import { getAuth } from "firebase/auth"
 
 // import HomeView from '../views/HomeView.vue'
 import Items from '../views/Items.vue'
-import NewItem from '../views/NewItem.vue'
 import Item from '../views/Item.vue'
 import Login from '../views/Login.vue'
 import Register from '../views/Register.vue'
@@ -56,12 +55,6 @@ const routes = [
     alias: '/',
     name: 'items',
     component: Items,
-    beforeEnter: requireAuth,
-  },
-  {
-    path: '/items/new',
-    name: 'new_item',
-    component: NewItem,
     beforeEnter: requireAuth,
   },
   {

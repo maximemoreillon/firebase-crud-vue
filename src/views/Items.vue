@@ -9,21 +9,13 @@
         </v-col>
         <v-spacer />
         <v-col cols="auto">
-          <v-btn
-            icon
-            :to="{name: 'new_item'}">
-            <v-icon>mdi-plus</v-icon>
-          </v-btn>
+          <CreateItemDialog @create="this.get_items()" />
         </v-col>
       </v-row>
     </v-toolbar>
 
     <v-card-text>
-      <v-data-table
-        :loading="loading"
-        :headers="headers"
-        :items="items"
-        @click:row="row_clicked($event)"/>
+      <v-data-table :loading="loading" :headers="headers" :items="items" @click:row="row_clicked($event)" />
     </v-card-text>
   </v-card>
 </template>
@@ -35,8 +27,13 @@ import {
   getDocs,
 } from 'firebase/firestore'
 
+import CreateItemDialog from '@/components/CreateItemDialog.vue'
+
 export default {
   name: 'Items',
+  components: {
+    CreateItemDialog
+  },
   data(){
     return {
       loading: false,
@@ -47,6 +44,7 @@ export default {
       ]
     }
   },
+  
   mounted(){
     this.get_items()
   },
