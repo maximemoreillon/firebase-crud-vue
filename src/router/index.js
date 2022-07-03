@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-// import store from '../store'
+import store from '../store'
 import { getAuth } from "firebase/auth"
 
 // import HomeView from '../views/HomeView.vue'
@@ -18,8 +18,11 @@ Vue.use(VueRouter)
 
 const waitForAuthReady = async () => new Promise ((resolve) => {
 
-  if (!getAuth().currentUser) {
-    getAuth().onAuthStateChanged(resolve)
+  if (!store.state.authReady) {
+    getAuth().onAuthStateChanged( () => {
+      store.commit('setAuthReady')
+      resolve()
+    })
   }
   else {
     resolve()

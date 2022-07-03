@@ -1,5 +1,5 @@
 <template>
-    <v-card max-width="500px" class="mx-auto">
+    <v-card max-width="30rem" class="mx-auto">
 
         <v-card-title>Login</v-card-title>
         <template v-if="user">

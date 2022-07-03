@@ -1,5 +1,5 @@
 <template>
-    <v-card>
+    <v-card max-width="30rem" class="mx-auto">
         <v-card-title>Account</v-card-title>
         <v-card-text v-if="user">
 

@@ -5,12 +5,16 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    user: null
+    user: null,
+    authReady: false,
   },
   mutations: {
     setUser(state, user) {
       state.user = user
-    }
+    },
+    setAuthReady(state) {
+      state.authReady = true
+    },
   },
   actions: {
   },
