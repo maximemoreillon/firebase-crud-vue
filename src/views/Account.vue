@@ -11,6 +11,16 @@
                     {{user.email}}
                 </v-col>
             </v-row>
+            <v-row>
+                <v-spacer></v-spacer>
+                <v-col cols="auto">
+                    <v-btn :to="{name: 'login'}">
+                        <v-icon left>mdi-logout</v-icon>
+                        <span>Logout</span>
+                    </v-btn>
+                </v-col>
+                <v-spacer></v-spacer>
+            </v-row>
 
         </v-card-text>
     </v-card>
@@ -18,24 +28,21 @@
 
 <script>
 
-import { getAuth } from "firebase/auth"
 
 export default {
     name: 'Account',
 
     data() {
         return {
-            user: null
         }
     },
     mounted(){
-        this.get_user()
     },
-    methods: {
-        get_user(){
-            this.user = getAuth().currentUser
+    computed: {
+        user(){
+            return this.$store.state.user
         }
-    },
+    }
 
 
 

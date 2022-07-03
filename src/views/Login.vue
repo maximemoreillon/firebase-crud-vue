@@ -12,7 +12,7 @@
                 <v-row justify="center">
                     <v-col cols="auto">
                         <v-btn @click="logout()">
-                            <v-icon>mdi-logout</v-icon>
+                            <v-icon left>mdi-logout</v-icon>
                             <span class="ml-2">Logout</span>
                         </v-btn>
                     </v-col>
@@ -36,7 +36,7 @@
                     <v-row justify="center">
                         <v-col cols="auto">
                             <v-btn :loading="logging_in" type="submit">
-                                <v-icon>mdi-login</v-icon>
+                                <v-icon left>mdi-login</v-icon>
                                 <span class="ml-2">Login</span>
                             </v-btn>
                         </v-col>

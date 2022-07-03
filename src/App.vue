@@ -81,9 +81,14 @@ export default {
       ],
     };
   },
+  mounted(){
+    getAuth().onAuthStateChanged( (user) => {
+      this.$store.commit('setUser', user)
+    })
+  },
   computed: {
-    user(){
-      return getAuth().currentUser
+    user() {
+      return this.$store.state.user
     }
   }
 };
