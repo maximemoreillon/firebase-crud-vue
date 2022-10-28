@@ -66,20 +66,21 @@ export default {
         }
     },
     methods: {
-        register() {
+        async register() {
             this.loading = true
             const auth = getAuth()
-            createUserWithEmailAndPassword(auth, this.email, this.password)
-                .then(data => {
-                    console.log(data)
-                    this.$router.push({ name: 'login' })
-                })
-                .catch(error => {
-                    console.log('herte');
-                    console.error(error)
-                    this.error = error
-                })
-                .finally(() => { this.loading = false })
+            try {
+                await createUserWithEmailAndPassword(auth, this.email, this.password)
+                this.$router.push({ name: 'dashboard' })
+            } catch (error) {
+                console.log('herte');
+                console.error(error)
+                this.error = error
+            }
+            finally {
+                this.loading = false
+            }
+
 
         }
     }

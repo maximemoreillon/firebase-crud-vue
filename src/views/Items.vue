@@ -9,7 +9,7 @@
         </v-col>
         <v-spacer />
         <v-col cols="auto">
-          <CreateItemDialog @create="this.get_items()" />
+          <CreateItemDialog @itemCreated="get_items()" />
         </v-col>
       </v-row>
     </v-toolbar>

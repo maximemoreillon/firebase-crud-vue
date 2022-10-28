@@ -9,6 +9,7 @@ import Item from '../views/Item.vue'
 import Login from '../views/Login.vue'
 import Register from '../views/Register.vue'
 import Account from '../views/Account.vue'
+import About from '../views/About.vue'
 
 
 
@@ -83,12 +84,11 @@ const routes = [
     name: 'register',
     component: Register
   },
-  
   {
     path: '/about',
     name: 'about',
-    component: () => import('../views/About.vue')
-  }
+    component: About
+  },
 ]
 
 const router = new VueRouter({

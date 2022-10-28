@@ -3,11 +3,11 @@
   <v-card max-width="30rem" class="mx-auto">
 
     <v-card-title>
-      About
+      Firebase + Vue.js example app
     </v-card-title>
 
     <v-card-text>
-      This is an about page
+      Performs CRUD operations on items stored in a Firestore database
     </v-card-text>
 
   </v-card>

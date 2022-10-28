@@ -1,25 +1,32 @@
 <template>
-    <v-dialog v-model="dialog">
+    <v-dialog v-model="dialog" max-width="30rem">
         <template v-slot:activator="{ on, attrs }">
             <v-btn color="primary" dark v-bind="attrs" v-on="on">
-                New
+                <v-icon left>mdi-plus</v-icon>
+                <span>New item</span>
             </v-btn>
         </template>
-        <v-card>
+        <v-card >
             <v-card-title class="text-h5">
                 New item
             </v-card-title>
 
-            <v-form v-if="item">
+            <v-form @submit.prevent="create_item()">
                 <v-card-text>
                     <v-row>
                         <v-col>
-                            <v-text-field label="Name" v-model="item.name" />
+                            <v-text-field label="Name" v-model="newItem.name" ref="itemNameInput"/>
                         </v-col>
+                        
+                    </v-row>
+
+                    <v-row>
                         <v-col>
-                            <v-text-field label="Description" v-model="item.description" />
+                            <v-text-field label="Description" v-model="newItem.description" />
                         </v-col>
                     </v-row>
+
+                    
                 </v-card-text>
 
                 <v-card-actions>
@@ -27,7 +34,7 @@
                     <v-btn color="primary" text @click="dialog = false">
                         Cancel
                     </v-btn>
-                    <v-btn color="primary" text @click="create_item()" :loading="loading">
+                    <v-btn color="primary" text type="submit" :loading="loading">
                         Create
                     </v-btn>
                 </v-card-actions>
@@ -47,27 +54,37 @@ export default {
     name: 'CreateItemDialog',
     data() {
         return {
-            dialog: null,
-            defaults: {
+            dialog: false,
+            newItem: {
                 name: '',
                 description: '',
             },
-            item: null,
             loading: false,
         }
     },
-    mounted() {
-        this.item = { ...this.defaults }
+    watch: {
+        dialog(){
+            if(!this.dialog) return
+            setTimeout(() => {
+                this.$refs.itemNameInput.focus()
+            }, 0)
+        }
     },
     methods: {
         async create_item() {
+            this.loading = true
+
             try {
-                this.loading = true
                 const collectionRef = collection(firestore, 'items')
-                await addDoc(collectionRef, this.item)
-                this.$emit('create')
+                await addDoc(collectionRef, this.newItem)
+                this.$emit('itemCreated')
                 this.dialog = false
-                this.item = { ...this.defaults }
+
+                // reset input
+                this.newItem = {
+                    name: '',
+                    description: '',
+                }
             }
             catch (error) {
                 alert(error)
