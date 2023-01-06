@@ -1,29 +1,17 @@
 import { initializeApp } from "firebase/app"
 import { getFirestore } from "firebase/firestore"
 
-const {
-    VUE_APP_FIREBASE_API_KEY,
-    VUE_APP_FIREBASE_AUTH_DOMAIN,
-    VUE_APP_FIREBASE_DATABASE_URL,
-    VUE_APP_FIREBASE_PROJECT_ID,
-    VUE_APP_FIREBASE_STORAGE_BUCKET,
-    VUE_APP_FIREBASE_MESSAGING_SENDER_ID,
-    VUE_APP_FIREBASE_APP_ID,
-    VUE_APP_FIREBASE_MEASUREMENT_ID,
-} = process.env
-
 const firebaseConfig = {
-    apiKey: VUE_APP_FIREBASE_API_KEY,
-    authDomain: VUE_APP_FIREBASE_AUTH_DOMAIN,
-    databaseURL: VUE_APP_FIREBASE_DATABASE_URL,
-    projectId: VUE_APP_FIREBASE_PROJECT_ID,
-    storageBucket: VUE_APP_FIREBASE_STORAGE_BUCKET,
-    messagingSenderId: VUE_APP_FIREBASE_MESSAGING_SENDER_ID,
-    appId: VUE_APP_FIREBASE_APP_ID,
-    measurementId: VUE_APP_FIREBASE_MEASUREMENT_ID
+  apiKey: "AIzaSyAdp2YwweX93kIlLxnnCoa13t74RYYIQa8",
+  authDomain: "fir-crud-vue-4d77d.firebaseapp.com",
+  projectId: "fir-crud-vue-4d77d",
+  storageBucket: "fir-crud-vue-4d77d.appspot.com",
+  messagingSenderId: "389740065764",
+  appId: "1:389740065764:web:c10c5ec631afa472c44df1",
+  measurementId: "G-0L4J1DMNNL",
 }
 
 const app = initializeApp(firebaseConfig)
 const firestore = getFirestore()
 
-export {app, firestore}
+export { app, firestore }
